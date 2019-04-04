@@ -1,4 +1,6 @@
 import lodashGet from 'lodash/get';
 
-export const getUsers = (store) => lodashGet(store, 'chat.users', {});
-export const getUsersArray = (store) => Object.values(getUsers(store));
+export const getUsers = (state) => lodashGet(state, 'chat.users', {});
+export const getUsersArray = (state) => Object.values(getUsers(state));
+
+export const getCurrentUser = (state) => lodashGet(state, 'chat.currentUser', null);

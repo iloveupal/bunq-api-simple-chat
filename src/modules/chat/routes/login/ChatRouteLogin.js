@@ -8,8 +8,10 @@ import {
     getUserName,
 } from 'Modules/chat/domains/users/UsersPropGetters';
 
+import { selectUser } from 'Modules/chat/actions/ChatActions';
+
 import UserTableCell from 'Modules/chat/components/User/UserTableCell';
-import ChatRouteLoginComponent from "Modules/chat/routes/login/ChatRouteLoginComponent";
+import ChatRouteLoginComponent from 'Modules/chat/routes/login/ChatRouteLoginComponent';
 
 
 const mapStateToProps = (state) => ({
@@ -17,7 +19,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onUserSelected: (user) => console.log(user),
+    onUserSelected: (userId) => dispatch(selectUser(userId)),
 });
 
 

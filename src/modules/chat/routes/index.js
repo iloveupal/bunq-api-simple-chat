@@ -1,13 +1,14 @@
 import React from 'react';
 
-
 import {
+    CHAT_ROUTE__CONVERSATIONS,
     CHAT_ROUTE__LOADING,
     CHAT_ROUTE__LOGIN,
 } from 'Modules/chat/constants/ChatRoutes';
 
 import ChatRouteLoading from './loading/ChatRouteLoading';
 import ChatRouteLogin from './login/ChatRouteLogin';
+import ChatRouteConversations from './conversations/ChatRouteConversations';
 
 
 export default {
@@ -20,4 +21,7 @@ export default {
     [CHAT_ROUTE__LOGIN]: {
         Component: ChatRouteLogin,
     },
+    [CHAT_ROUTE__CONVERSATIONS]: {
+        Component: ChatRouteConversations,
+    }
 };

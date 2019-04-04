@@ -22,27 +22,33 @@ const ColorCircle = styled.div`
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
+    width: ${(props) => props.small ? '20px' : '60px'};
+    height: ${(props) => props.small ? '20px' : '60px'};
+    border-radius: ${(props) => props.small ? '10px' : '30px'};
     background-color: ${(props) => props.color};
     font-weight: bold;
     font-family: sans-serif;
+    font-size: ${(props) => props.small ? '10px' : '16px'};
     color: white;
+    cursor: pointer;
 `;
 
 
 export default class UserColorCircle extends PureComponent {
     static propTypes = {
-        name: PropTypes.string.isRequired,
+        name: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        small: PropTypes.bool,
     };
 
     render () {
         return (
             <ColorCircle
-                color={stringToColor(this.props.name)}
+                color={stringToColor(this.props.id)}
+                small={!!this.props.small}
+                title={this.props.name}
             >
-                {getInitials(this.props.name)}
+                {this.props.name && getInitials(this.props.name)}
             </ColorCircle>
         )
     }

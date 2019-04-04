@@ -38,7 +38,10 @@ export default class UserTableCell extends PureComponent {
     render () {
         return (
             <Container onClick={this.handleClick}>
-                <UserColorCircle name={this.props.name}/>
+                <UserColorCircle
+                    name={this.props.name}
+                    id={this.props.id}
+                />
                 <UserNameContainer>
                     <UserName name={this.props.name}/>
                 </UserNameContainer>
