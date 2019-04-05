@@ -14,7 +14,7 @@ const Container = styled.div`
     cursor: pointer;
     
     &:hover {
-        background-color: #f2f2f2;
+        background-color: #333;
     }
 `;
 
@@ -22,7 +22,7 @@ const UserNameContainer = styled.div`
     padding-left: 20px;
 `;
 
-export default class UserTableCell extends PureComponent {
+export default class UserListItem extends PureComponent {
     static propTypes = {
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,

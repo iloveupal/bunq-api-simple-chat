@@ -8,7 +8,7 @@ const Container = styled.div`
     height: 100%;
     min-height: 100vh;
     width: 100%;
-    background-color: #fcfcfc;
+    background-color: #222222;
     justify-content: center;
     align-items: center;
     padding: 50px 0;
@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-    color: #222222;
+    color: white;
     font-family: sans-serif;
     font-weight: bold;
     font-size: 20px;

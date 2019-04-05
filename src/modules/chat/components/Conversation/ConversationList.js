@@ -17,6 +17,7 @@ export class ConversationList extends PureComponent {
     static propTypes = {
         virtual: PropTypes.object.isRequired,
         itemHeight: PropTypes.number.isRequired,
+        onClick: PropTypes.func.isRequired,
     }
 
     render () {
@@ -26,6 +27,7 @@ export class ConversationList extends PureComponent {
                     <ConversationListItem
                         data={item}
                         key={getConversationId(item)}
+                        onClick={this.props.onClick}
                     />
                 )) }
             </div>
@@ -33,4 +35,23 @@ export class ConversationList extends PureComponent {
     }
 }
 
-export default VirtualList()(ConversationList);
+const VirtualConversationList = VirtualList()(ConversationList);
+
+export default class VirtualConversationListContainer extends PureComponent {
+    static propTypes = {
+        items: PropTypes.array.isRequired,
+        onClick: PropTypes.func.isRequired,
+    }
+
+    render () {
+        return (
+            <VirtualConversationList
+                items={this.props.items}
+                onClick={this.props.onClick}
+                itemHeight={ConversationListItem.HEIGHT}
+                // to make sure no lags occur.
+                itemBuffer={20}
+            />
+        );
+    }
+}

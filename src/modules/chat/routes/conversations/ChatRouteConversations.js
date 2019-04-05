@@ -8,7 +8,6 @@ import {
 } from 'Modules/chat/domains/conversations/ConversationsSelectors';
 
 import { loadConversations } from 'Modules/chat/actions/ConversationsActions';
-import ConversationListItem from 'Modules/chat/components/Conversation/ConversationListItem';
 import ConversationList from 'Modules/chat/components/Conversation/ConversationList';
 import Header from 'Modules/chat/components/Header/Header';
 import ChatRouteConversationComponent from './ChatRouteConversationComponent';
@@ -28,11 +27,15 @@ export class ChatRouteConversations extends PureComponent {
         conversations: PropTypes.object.isRequired,
         isLoading: PropTypes.bool,
         loadConversations: PropTypes.func.isRequired,
-    }
+    };
 
     componentDidMount () {
         this.props.loadConversations();
     }
+
+    handleConversationListItemClick = (data) => {
+        console.log(data);
+    };
 
     render () {
         if ( this.props.isLoading ) {
@@ -45,8 +48,7 @@ export class ChatRouteConversations extends PureComponent {
                 <Header />
                 <ConversationList
                     items={Object.values(this.props.conversations)}
-                    itemHeight={ConversationListItem.HEIGHT}
-                    itemBuffer={20}
+                    onClick={this.handleConversationListItemClick}
                 />
             </ChatRouteConversationComponent>
         );

@@ -39,13 +39,18 @@ export default class ConversationListItem extends PureComponent {
             users: PropTypes.array.isRequired,
             conversation: PropTypes.object.isRequired,
         }).isRequired,
+        onClick: PropTypes.func.isRequired,
     };
 
     static HEIGHT = 80;
 
+    handleClick = () => {
+        this.props.onClick(this.props.data);
+    };
+
     render () {
         return (
-            <Container>
+            <Container onClick={this.handleClick}>
                 <ConversationName>
                     { renderConversationName(this.props.data) }
                 </ConversationName>

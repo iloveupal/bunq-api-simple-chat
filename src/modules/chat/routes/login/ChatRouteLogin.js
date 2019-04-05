@@ -10,7 +10,7 @@ import {
 
 import { selectUser } from 'Modules/chat/actions/UserActions';
 
-import UserTableCell from 'Modules/chat/components/User/UserTableCell';
+import UserListItem from 'Modules/chat/components/User/UserListItem';
 import ChatRouteLoginComponent from 'Modules/chat/routes/login/ChatRouteLoginComponent';
 
 
@@ -38,7 +38,7 @@ export class ChatRouteLogin extends PureComponent {
             <ChatRouteLoginComponent>
                 { this.props.users.map((user) => {
                     return (
-                        <UserTableCell
+                        <UserListItem
                             key={getUserId(user)}
                             id={getUserId(user)}
                             name={getUserName(user)}
