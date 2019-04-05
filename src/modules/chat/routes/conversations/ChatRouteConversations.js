@@ -4,10 +4,17 @@ import { connect } from 'react-redux';
 
 import {
     getConversationsOfCurrentUser,
-    getConversationsIsLoading,
 } from 'Modules/chat/domains/conversations/ConversationsSelectors';
 
-import { loadConversations } from 'Modules/chat/actions/ConversationsActions';
+import {
+    getConversationId,
+} from 'Modules/chat/domains/conversations/ConversationsPropGetters';
+
+import {
+    loadConversations,
+    setCurrentConversation,
+} from 'Modules/chat/actions/ConversationsActions';
+
 import ConversationList from 'Modules/chat/components/Conversation/ConversationList';
 import Header from 'Modules/chat/components/Header/Header';
 import ChatRouteConversationComponent from './ChatRouteConversationComponent';
@@ -19,12 +26,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     loadConversations: () => dispatch(loadConversations()),
+    onConversationSelected: (id) => dispatch(setCurrentConversation(id)),
 });
 
 export class ChatRouteConversations extends PureComponent {
     static propTypes = {
         conversations: PropTypes.object.isRequired,
         loadConversations: PropTypes.func.isRequired,
+        onConversationSelected: PropTypes.func.isRequired,
     };
 
     componentDidMount () {
@@ -32,7 +41,9 @@ export class ChatRouteConversations extends PureComponent {
     }
 
     handleConversationListItemClick = (data) => {
-        console.log(data);
+        const conversationId = getConversationId(data);
+
+        this.props.onConversationSelected(conversationId);
     };
 
     render () {
@@ -43,6 +54,7 @@ export class ChatRouteConversations extends PureComponent {
                     items={Object.values(this.props.conversations)}
                     onClick={this.handleConversationListItemClick}
                 />
+
             </ChatRouteConversationComponent>
         );
     }

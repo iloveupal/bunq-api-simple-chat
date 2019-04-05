@@ -10,6 +10,8 @@ import {
     navigateToLogin,
 } from './NavigationActions';
 
+import {setCurrentConversation} from './ConversationsActions';
+
 
 export const setUsers = makeActionCreator(ACTION_TYPES__CHAT_SET_USERS);
 export const setCurrentUser = makeActionCreator(ACTION_TYPES__CHAT_SET_CURRENT_USER);
@@ -23,4 +25,5 @@ export const selectUser = (userId) => (dispatch) => {
 export const logout = () => (dispatch) => {
     dispatch(navigateToLogin());
     dispatch(setCurrentUser(null));
+    dispatch(setCurrentConversation(null));
 };

@@ -3,7 +3,8 @@ import { reduceConversationsArrayById } from 'Modules/chat/domains/conversations
 
 import {
     ACTION_TYPES__CHAT_CONVERSATIONS_SET_LOADING_STATE,
-    ACTION_TYPES_CHAT_CONVERSATIONS_SET,
+    ACTION_TYPES__CHAT_CONVERSATIONS_SET,
+    ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT,
 } from 'Modules/chat/action-types/ConversationsActionTypes';
 
 import {
@@ -19,8 +20,8 @@ import { navigateToError } from 'Modules/chat/actions/NavigationActions';
 
 
 export const setConversationsLoadingState = makeActionCreator(ACTION_TYPES__CHAT_CONVERSATIONS_SET_LOADING_STATE);
-export const setUserConversations = makeActionCreator(ACTION_TYPES_CHAT_CONVERSATIONS_SET);
-
+export const setUserConversations = makeActionCreator(ACTION_TYPES__CHAT_CONVERSATIONS_SET);
+export const setCurrentConversation = makeActionCreator(ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT);
 
 export const loadConversations = () => (dispatch, getState) => {
     const state = getState();

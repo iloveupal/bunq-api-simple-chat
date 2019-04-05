@@ -5,7 +5,7 @@ import {
 
 import {
     ACTION_TYPES__CHAT_CONVERSATIONS_SET_LOADING_STATE,
-    ACTION_TYPES_CHAT_CONVERSATIONS_SET,
+    ACTION_TYPES__CHAT_CONVERSATIONS_SET, ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT,
 } from 'Modules/chat/action-types/ConversationsActionTypes';
 
 
@@ -15,6 +15,7 @@ const initialState = {
     userConversationsLoading: false,
     users: {},
     currentUser: null,
+    currentConversation: null,
     messages: {},
     currentRoute: null,
 };
@@ -41,13 +42,18 @@ export default function (state = initialState, action) {
                 ...state,
                 userConversationsLoading: action.payload,
             };
-        case ACTION_TYPES_CHAT_CONVERSATIONS_SET:
+        case ACTION_TYPES__CHAT_CONVERSATIONS_SET:
             return {
                 ...state,
                 userConversations: {
                     ...state.userConversations,
                     [action.payload.userId]: action.payload.conversations,
                 },
+            };
+        case ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT:
+            return {
+                ...state,
+                currentConversation: action.payload,
             };
         default:
             return { ...state };
