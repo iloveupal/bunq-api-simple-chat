@@ -15,7 +15,6 @@ import ChatRouteConversationComponent from './ChatRouteConversationComponent';
 
 const mapStateToProps = (state) => ({
     conversations: getConversationsOfCurrentUser(state),
-    isLoading: getConversationsIsLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -25,7 +24,6 @@ const mapDispatchToProps = (dispatch) => ({
 export class ChatRouteConversations extends PureComponent {
     static propTypes = {
         conversations: PropTypes.object.isRequired,
-        isLoading: PropTypes.bool,
         loadConversations: PropTypes.func.isRequired,
     };
 
@@ -38,11 +36,6 @@ export class ChatRouteConversations extends PureComponent {
     };
 
     render () {
-        if ( this.props.isLoading ) {
-            return null;
-        }
-
-
         return (
             <ChatRouteConversationComponent>
                 <Header />

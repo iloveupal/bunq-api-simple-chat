@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 
-import UserName from 'Modules/chat/components/User/UserName';
-import CreateConversationButton from 'Modules/chat/components/Conversation/CreateConversationButton';
-
 import { getCurrentUserObject } from 'Modules/chat/domains/users/UsersSelectors';
 import { logout } from 'Modules/chat/actions/UserActions';
-import UserColorCircle from 'Modules/chat/components/User/UserColorCircle';
 import { getUserId, getUserName } from 'Modules/chat/domains/users/UsersPropGetters';
+import { getConversationsIsLoading } from 'Modules/chat/domains/conversations/ConversationsSelectors';
+
+import UserColorCircle from 'Modules/chat/components/User/UserColorCircle';
+import Spinner from 'Modules/chat/components/Spinner';
+import CreateConversationButton from 'Modules/chat/components/Conversation/CreateConversationButton';
 
 
 const Container = styled.div`
@@ -50,8 +51,13 @@ const LogoutButton = styled.div`
     }
 `;
 
+const HeaderSpinnerContainer = styled.div`
+    padding-left: 15px;
+`;
+
 const mapStateToProps = (state) => ({
     currentUser: getCurrentUserObject(state),
+    isConversationsLoading: getConversationsIsLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -63,6 +69,7 @@ const mapDispatchToProps = (dispatch) => ({
 export class Header extends PureComponent {
     static propTypes = {
         currentUser: PropTypes.object.isRequired,
+        isConversationsLoading: PropTypes.bool.isRequired,
         onLogout: PropTypes.func.isRequired,
         onCreateConversation: PropTypes.func.isRequired,
     }
@@ -70,7 +77,13 @@ export class Header extends PureComponent {
     render () {
         return (
             <Container>
-                <CreateConversationButton onClick={this.props.onCreateConversation}/>
+                { this.props.isConversationsLoading ? (
+                    <HeaderSpinnerContainer>
+                        <Spinner />
+                    </HeaderSpinnerContainer>
+                ) : (
+                    <CreateConversationButton onClick={this.props.onCreateConversation}/>
+                )}
                 <HeaderRightSubgroup>
                     <UserColorCircle small id={getUserId(this.props.currentUser)} name={getUserName(this.props.currentUser)}/>
                     <LogoutButton onClick={this.props.onLogout}>
