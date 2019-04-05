@@ -8,7 +8,7 @@ import {
     getUserName,
 } from 'Modules/chat/domains/users/UsersPropGetters';
 
-import { selectUser } from 'Modules/chat/actions/ChatActions';
+import { selectUser } from 'Modules/chat/actions/UserActions';
 
 import UserTableCell from 'Modules/chat/components/User/UserTableCell';
 import ChatRouteLoginComponent from 'Modules/chat/routes/login/ChatRouteLoginComponent';

@@ -19,6 +19,7 @@ const Container = styled.div`
     box-sizing: border-box;
     font-family: sans-serif;
     flex-flow: column nowrap;
+    cursor: pointer;
     
     &:hover {
         background-color: #333;

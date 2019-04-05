@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 
 const NameLabel = styled.div`
-    color: #222222;
+    color: ${(props) => props.white ? 'white' : '#222222'};
     font-family: sans-serif;
     font-weight: bold;
     font-size: 14px;
@@ -14,11 +14,12 @@ const NameLabel = styled.div`
 export default class UserName extends PureComponent {
     static propTypes = {
         name: PropTypes.string.isRequired,
+        white: PropTypes.bool,
     };
 
     render () {
         return (
-            <NameLabel>
+            <NameLabel white={this.props.white}>
                 {this.props.name}
             </NameLabel>
         )

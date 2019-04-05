@@ -1,4 +1,5 @@
-import {makeActionCreator} from 'Framework/reduxActions';
+import { makeActionCreator } from 'Framework/reduxActions';
+import { reduceConversationsArrayById } from 'Modules/chat/domains/conversations/ConversationsUtils';
 
 import {
     ACTION_TYPES__CHAT_CONVERSATIONS_SET_LOADING_STATE,
@@ -14,11 +15,7 @@ import {
     ApiService,
 } from 'Modules/chat/api/ChatsApi';
 
-import { CHAT_ROUTE__ERROR, createRoute } from 'Modules/chat/constants/ChatRoutes';
-
-import { setCurrentRoute } from 'Modules/chat/actions/ChatActions';
-
-import { reduceConversationsArrayById } from 'Modules/chat/domains/conversations/ConversationsUtils';
+import { navigateToError } from 'Modules/chat/actions/NavigationActions';
 
 
 export const setConversationsLoadingState = makeActionCreator(ACTION_TYPES__CHAT_CONVERSATIONS_SET_LOADING_STATE);
@@ -40,5 +37,5 @@ export const loadConversations = () => (dispatch, getState) => {
                 conversations: reduceConversationsArrayById(data),
             }));
         })
-        .catch(( error ) => setCurrentRoute(createRoute(CHAT_ROUTE__ERROR, { error })));
+        .catch(( error ) => navigateToError({ error }));
 };

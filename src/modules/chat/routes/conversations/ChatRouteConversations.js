@@ -10,6 +10,8 @@ import {
 import { loadConversations } from 'Modules/chat/actions/ConversationsActions';
 import ConversationListItem from 'Modules/chat/components/Conversation/ConversationListItem';
 import ConversationList from 'Modules/chat/components/Conversation/ConversationList';
+import Header from 'Modules/chat/components/Header/Header';
+import ChatRouteConversationComponent from './ChatRouteConversationComponent';
 
 
 const mapStateToProps = (state) => ({
@@ -39,13 +41,14 @@ export class ChatRouteConversations extends PureComponent {
 
 
         return (
-            <div>
+            <ChatRouteConversationComponent>
+                <Header />
                 <ConversationList
                     items={Object.values(this.props.conversations)}
                     itemHeight={ConversationListItem.HEIGHT}
                     itemBuffer={20}
                 />
-            </div>
+            </ChatRouteConversationComponent>
         );
     }
 }

@@ -1,46 +1,36 @@
-import { makeActionCreator } from 'Framework/reduxActions';
-
 import { reduceUserArrayById } from 'Modules/chat/domains/users/UsersUtils';
 
 import {
-    ACTION_TYPES__CHAT_SET_CURRENT_ROUTE,
-    ACTION_TYPES__CHAT_SET_USERS,
-    ACTION_TYPES__CHAT_SET_CURRENT_USER,
-} from 'Modules/chat/action-types/ChatActionTypes';
-
-import {
-    createRoute,
-    CHAT_ROUTE__LOADING,
-    CHAT_ROUTE__LOGIN,
-    CHAT_ROUTE__ERROR,
-    CHAT_ROUTE__CONVERSATIONS,
-} from 'Modules/chat/constants/ChatRoutes';
-
-import {
     ApiService,
-    API_CHATS__GET_USERS, API_CHATS__GET_CONVERSATIONS_OF_USER,
+    API_CHATS__GET_USERS,
 } from 'Modules/chat/api/ChatsApi';
 
+import {
+    navigateToLoading,
+    navigateToLogin,
+    navigateToError,
+} from './NavigationActions';
 
-export const setCurrentRoute = makeActionCreator(ACTION_TYPES__CHAT_SET_CURRENT_ROUTE);
-export const setUsers = makeActionCreator(ACTION_TYPES__CHAT_SET_USERS);
-export const setCurrentUser = makeActionCreator(ACTION_TYPES__CHAT_SET_CURRENT_USER);
+import {
+    setUsers
+} from './UserActions';
 
 
 export const finishChatModuleInitialization = (users) => (dispatch) => {
     dispatch(setUsers(users));
-    dispatch(setCurrentRoute(createRoute(CHAT_ROUTE__LOGIN)));
+    dispatch(navigateToLogin());
 };
 
 export const initializeChatModule = (dispatch) => {
-    dispatch(setCurrentRoute(createRoute(CHAT_ROUTE__LOADING)));
+    dispatch(navigateToLoading());
 
     ApiService(API_CHATS__GET_USERS)
-        .then(({ data }) => dispatch(finishChatModuleInitialization(reduceUserArrayById(data))))
-        .catch(( error ) => dispatch(setCurrentRoute(createRoute(CHAT_ROUTE__ERROR, { error }))));
-};
-
-export const selectUser = (userId) => (dispatch) => {
-    dispatch(setCurrentUser(userId));
-    dispatch(setCurrentRoute(createRoute(CHAT_ROUTE__CONVERSATIONS)));
+        .then(
+            ({ data }) =>
+                dispatch(finishChatModuleInitialization(reduceUserArrayById(data)))
+        )
+        .catch(
+            ( error ) =>
+                dispatch(navigateToError({ error }))
+        );
 };
