@@ -1,7 +1,7 @@
 import lodashRange from 'lodash/range';
 
 import PropTypes from 'prop-types';
-import { HttpApi, MockHttpApi } from 'Framework/api';
+import { HttpApi } from 'Framework/api';
 
 
 export const API_CHATS__GET_USERS = 'API_CHATS__GET_USERS';
@@ -21,9 +21,6 @@ export const ApiRequestsConfig = {
     [API_CHATS__GET_USERS]: {
         method: 'get',
         uri: () => '/users',
-        mockResponse: () => ({
-            data: [{"id":"1","name":"Wessel"},{"id":"2","name":"Quint"}, {"id":"3","name":"Mani"},{"id":"4","name":"Menno"}, {"id":"5","name":"Patrick"}],
-        }),
     },
     [API_CHATS__GET_SINGLE_USER]: {
         method: 'get',
@@ -31,9 +28,6 @@ export const ApiRequestsConfig = {
         propTypes: {
             userId: PropTypes.string.isRequired,
         },
-        mockResponse: () => ({
-            data: {"id":"1","name":"Wessel"},
-        })
     },
     [API_CHATS__POLL_MESSAGES]: {
         method: 'get',
@@ -52,9 +46,6 @@ export const ApiRequestsConfig = {
             limit: PropTypes.number,
             offset: PropTypes.number,
         },
-        mockResponse: () => ({
-            data: [{"id":"30","senderId":"1","message":"Bang bang","timestamp":"2014-10-24 11:42:27","conversationid":"1","status":"0"}, {"id":"29","senderId":"2","message":"you shot me down","timestamp":"2014-10-24 11:42:16","conversationid":"1","status":"0"}],
-        }),
     },
     [API_CHATS__GET_LAST_SEEN_OF_USER]: {
         method: 'get',
@@ -132,5 +123,5 @@ export const ApiRequestsConfig = {
     }
 };
 
-// export const ApiService = (requestName, params) => HttpApi(ApiRequestsConfig[requestName], params);
-export const ApiService = (requestName, params) => MockHttpApi(ApiRequestsConfig[requestName], params);
+export const ApiService = (requestName, params) => HttpApi(ApiRequestsConfig[requestName], params);
+// export const ApiService = (requestName, params) => MockHttpApi(ApiRequestsConfig[requestName], params);

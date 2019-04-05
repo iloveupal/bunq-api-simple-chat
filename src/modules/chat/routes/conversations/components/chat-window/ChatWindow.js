@@ -19,7 +19,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onLoadMoreMessages: ({ conversationId, offset }) => dispatch(requestMessages({ conversationId, offset })),
+    onLoadMoreMessages: ({ conversationId, offset, limit }) => dispatch(requestMessages({ conversationId, offset, limit })),
     onPollNewMessages: (conversationId) => console.log('Poll conversation id' + conversationId),
 });
 
