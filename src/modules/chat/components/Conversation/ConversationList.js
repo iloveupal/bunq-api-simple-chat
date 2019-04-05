@@ -4,6 +4,8 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
 import VirtualList from 'react-virtual-list';
 
 import { getConversationId } from 'Modules/chat/domains/conversations/ConversationsPropGetters';
@@ -11,6 +13,11 @@ import { getConversationId } from 'Modules/chat/domains/conversations/Conversati
 import ConversationListItem from './ConversationListItem';
 
 
+const ListWrapper = styled.div`
+    display: block;
+    height: calc(100vh - 50px);
+    overflow-y: scroll;
+`;
 
 
 export class ConversationList extends PureComponent {
@@ -35,23 +42,29 @@ export class ConversationList extends PureComponent {
     }
 }
 
-const VirtualConversationList = VirtualList()(ConversationList);
-
 export default class VirtualConversationListContainer extends PureComponent {
     static propTypes = {
         items: PropTypes.array.isRequired,
         onClick: PropTypes.func.isRequired,
-    }
+    };
+
+    saveListWrapperRef = (ref) => {
+        this.VirtualConversationList = VirtualList({ container: ref })(ConversationList);
+    };
 
     render () {
         return (
-            <VirtualConversationList
-                items={this.props.items}
-                onClick={this.props.onClick}
-                itemHeight={ConversationListItem.HEIGHT}
-                // to make sure no lags occur.
-                itemBuffer={20}
-            />
+            <ListWrapper ref={this.saveListWrapperRef}>
+                {this.VirtualConversationList && (
+                    <this.VirtualConversationList
+                        items={this.props.items}
+                        onClick={this.props.onClick}
+                        itemHeight={ConversationListItem.HEIGHT}
+                        // to make sure no lags occur.
+                        itemBuffer={20}
+                    />
+                )}
+            </ListWrapper>
         );
     }
 }

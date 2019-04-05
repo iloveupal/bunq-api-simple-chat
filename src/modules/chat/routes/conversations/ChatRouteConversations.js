@@ -1,9 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import {
     getConversationsOfCurrentUser,
+    getCurrentConversation,
 } from 'Modules/chat/domains/conversations/ConversationsSelectors';
 
 import {
@@ -19,9 +20,13 @@ import ConversationList from 'Modules/chat/components/Conversation/ConversationL
 import Header from 'Modules/chat/components/Header/Header';
 import ChatRouteConversationComponent from './ChatRouteConversationComponent';
 
+import ChatWindow from './components/chat-window';
+import SelectConversationInvitation from './components/select-conversation-invitation';
+
 
 const mapStateToProps = (state) => ({
     conversations: getConversationsOfCurrentUser(state),
+    isConversationSelected: !!getCurrentConversation(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -32,6 +37,7 @@ const mapDispatchToProps = (dispatch) => ({
 export class ChatRouteConversations extends PureComponent {
     static propTypes = {
         conversations: PropTypes.object.isRequired,
+        isConversationSelected: PropTypes.bool.isRequired,
         loadConversations: PropTypes.func.isRequired,
         onConversationSelected: PropTypes.func.isRequired,
     };
@@ -48,14 +54,20 @@ export class ChatRouteConversations extends PureComponent {
 
     render () {
         return (
-            <ChatRouteConversationComponent>
+            <Fragment>
                 <Header />
-                <ConversationList
-                    items={Object.values(this.props.conversations)}
-                    onClick={this.handleConversationListItemClick}
-                />
-
-            </ChatRouteConversationComponent>
+                <ChatRouteConversationComponent>
+                    <ConversationList
+                        items={Object.values(this.props.conversations)}
+                        onClick={this.handleConversationListItemClick}
+                    />
+                    {this.props.isConversationSelected ? (
+                        <ChatWindow />
+                    ) : (
+                        <SelectConversationInvitation />
+                    )}
+                </ChatRouteConversationComponent>
+            </Fragment>
         );
     }
 }

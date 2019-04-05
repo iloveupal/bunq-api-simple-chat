@@ -1,13 +1,23 @@
 import {
-    ACTION_TYPES__CHAT_SET_CURRENT_ROUTE, ACTION_TYPES__CHAT_SET_CURRENT_USER,
+    ACTION_TYPES__CHAT_SET_CURRENT_ROUTE,
+    ACTION_TYPES__CHAT_SET_CURRENT_USER,
     ACTION_TYPES__CHAT_SET_USERS,
 } from 'Modules/chat/action-types/ChatActionTypes';
 
 import {
+    ACTION_TYPES__CHAT_SET_MESSAGES_LOADING_STATE,
+    ACTION_TYPES__CHAT_SET_MESSAGES,
+} from 'Modules/chat/action-types/MessagesActionTypes';
+
+import {
     ACTION_TYPES__CHAT_CONVERSATIONS_SET_LOADING_STATE,
-    ACTION_TYPES__CHAT_CONVERSATIONS_SET, ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT,
+    ACTION_TYPES__CHAT_CONVERSATIONS_SET,
+    ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT,
 } from 'Modules/chat/action-types/ConversationsActionTypes';
 
+import {
+    mergeMessages,
+} from 'Modules/chat/domains/messages/MessagesUtils';
 
 
 const initialState = {
@@ -17,6 +27,7 @@ const initialState = {
     currentUser: null,
     currentConversation: null,
     messages: {},
+    messagesLoadingState: {},
     currentRoute: null,
 };
 
@@ -54,6 +65,22 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 currentConversation: action.payload,
+            };
+        case ACTION_TYPES__CHAT_SET_MESSAGES_LOADING_STATE:
+            return {
+                ...state,
+                messagesLoadingState: {
+                    ...state.messagesLoadingState,
+                    [action.payload.conversationId]: action.payload.state,
+                },
+            };
+        case ACTION_TYPES__CHAT_SET_MESSAGES:
+            return {
+                ...state,
+                messages: {
+                    ...state.messages,
+                    [action.payload.conversationId]: mergeMessages(state.messages.conversationId, action.payload),
+                },
             };
         default:
             return { ...state };

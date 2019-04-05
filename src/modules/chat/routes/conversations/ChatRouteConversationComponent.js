@@ -6,6 +6,10 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     padding-top: 50px;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100vh;
+    box-sizing: border-box;
 `;
 
 export default class ChatRouteConversationComponent extends PureComponent {

@@ -1,1 +1,1 @@
-export const CHAT_API__DEFAULT_MESSAGES_LIMIT = 50;
+export const CHAT__MESSAGES_DEFAULT_LIMIT = 50;

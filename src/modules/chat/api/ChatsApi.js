@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import { HttpApi } from 'Framework/api';
+import lodashRange from 'lodash/range';
 
-import { CHAT_API__DEFAULT_MESSAGES_LIMIT } from 'Modules/chat/constants/ChatApiConstants';
+import PropTypes from 'prop-types';
+import { HttpApi, MockHttpApi } from 'Framework/api';
 
 
 export const API_CHATS__GET_USERS = 'API_CHATS__GET_USERS';
@@ -21,6 +21,9 @@ export const ApiRequestsConfig = {
     [API_CHATS__GET_USERS]: {
         method: 'get',
         uri: () => '/users',
+        mockResponse: () => ({
+            data: [{"id":"1","name":"Wessel"},{"id":"2","name":"Quint"}, {"id":"3","name":"Mani"},{"id":"4","name":"Menno"}, {"id":"5","name":"Patrick"}],
+        }),
     },
     [API_CHATS__GET_SINGLE_USER]: {
         method: 'get',
@@ -28,6 +31,9 @@ export const ApiRequestsConfig = {
         propTypes: {
             userId: PropTypes.string.isRequired,
         },
+        mockResponse: () => ({
+            data: {"id":"1","name":"Wessel"},
+        })
     },
     [API_CHATS__POLL_MESSAGES]: {
         method: 'get',
@@ -46,9 +52,9 @@ export const ApiRequestsConfig = {
             limit: PropTypes.number,
             offset: PropTypes.number,
         },
-        defaultProps: {
-            limit: CHAT_API__DEFAULT_MESSAGES_LIMIT,
-        }
+        mockResponse: () => ({
+            data: [{"id":"30","senderId":"1","message":"Bang bang","timestamp":"2014-10-24 11:42:27","conversationid":"1","status":"0"}, {"id":"29","senderId":"2","message":"you shot me down","timestamp":"2014-10-24 11:42:16","conversationid":"1","status":"0"}],
+        }),
     },
     [API_CHATS__GET_LAST_SEEN_OF_USER]: {
         method: 'get',
@@ -71,6 +77,15 @@ export const ApiRequestsConfig = {
         propTypes: {
             userId: PropTypes.string.isRequired,
         },
+        mockResponse: () => ({
+            data: lodashRange(50).map(num => ({
+                conversation: {
+                    conversationId: String(num),
+                    name: `Chat #${num}`,
+                },
+                users: [],
+            }))
+        }),
     },
     [API_CHATS__SEND_MESSAGE]: {
         method: 'post',
@@ -117,4 +132,5 @@ export const ApiRequestsConfig = {
     }
 };
 
-export const ApiService = (requestName, params) => HttpApi(ApiRequestsConfig[requestName], params);
+// export const ApiService = (requestName, params) => HttpApi(ApiRequestsConfig[requestName], params);
+export const ApiService = (requestName, params) => MockHttpApi(ApiRequestsConfig[requestName], params);

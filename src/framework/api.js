@@ -32,7 +32,11 @@ export const createApiService = (serviceProvider) => (apiRequest, params = {}) =
         method,
         url: uri,
         data: body,
-        params: query
+        params: query,
+        context: {
+            apiRequest,
+            params,
+        },
     });
 };
 
@@ -43,3 +47,5 @@ export const HttpApi = createApiService(axios.create({
     baseURL: baseUrl,
     paramsSerializer: (params) => qs.stringify(params),
 }));
+
+export const MockHttpApi = createApiService(({ context }) => Promise.resolve(context.apiRequest.mockResponse()));
