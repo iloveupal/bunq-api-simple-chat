@@ -21,6 +21,10 @@ import {
 } from 'Modules/chat/action-types/ConversationsActionTypes';
 
 import {
+    ACTION_TYPES__CHAT_SET_MODAL_STATE,
+} from 'Modules/chat/action-types/ModalActionTypes';
+
+import {
     mergeMessages,
 } from 'Modules/chat/domains/messages/MessagesUtils';
 
@@ -36,6 +40,7 @@ const initialState = {
     messagesSendingState: {},
     messagesAllLoaded: {},
     currentRoute: null,
+    currentModal: null,
 };
 
 export default function (state = initialState, action) {
@@ -104,6 +109,11 @@ export default function (state = initialState, action) {
                     ...state.messagesSendingState,
                     [action.payload.conversationId]: action.payload.state,
                 },
+            };
+        case ACTION_TYPES__CHAT_SET_MODAL_STATE:
+            return {
+                ...state,
+                currentModal: action.payload,
             };
         default:
             return { ...state };

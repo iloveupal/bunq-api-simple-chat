@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import { getCurrentUserObject } from 'Modules/chat/domains/users/UsersSelectors';
 import { logout } from 'Modules/chat/actions/UserActions';
+import { openCreateConversationModal } from 'Modules/chat/actions/ModalActions';
 import { getUserId, getUserName } from 'Modules/chat/domains/users/UsersPropGetters';
 import { getConversationsIsLoading } from 'Modules/chat/domains/conversations/ConversationsSelectors';
 
@@ -62,7 +63,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     onLogout: () => dispatch(logout()),
-    onCreateConversation: () => dispatch(startCreatingConversation()),
+    onCreateConversation: () => dispatch(openCreateConversationModal()),
 });
 
 

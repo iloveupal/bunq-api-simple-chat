@@ -22,13 +22,13 @@ const ColorCircle = styled.div`
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    width: ${(props) => props.small ? '20px' : '60px'};
-    height: ${(props) => props.small ? '20px' : '60px'};
-    border-radius: ${(props) => props.small ? '10px' : '30px'};
+    width: ${(props) => props.small ? '20px' : '40px'};
+    height: ${(props) => props.small ? '20px' : '40px'};
+    border-radius: ${(props) => props.small ? '10px' : '20px'};
     background-color: ${(props) => props.color};
     font-weight: bold;
     font-family: sans-serif;
-    font-size: ${(props) => props.small ? '10px' : '16px'};
+    font-size: ${(props) => props.small ? '10px' : '14px'};
     color: white;
     cursor: pointer;
 `;

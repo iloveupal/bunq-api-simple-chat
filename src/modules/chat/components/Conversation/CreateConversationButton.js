@@ -44,7 +44,7 @@ export default class CreateConversationButton extends PureComponent {
 
     render () {
         return (
-            <Container>
+            <Container onClick={this.props.onClick}>
                 <PlusIconContainer src={PlusIcon}/>
                 <Text>new conversation</Text>
             </Container>

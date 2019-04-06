@@ -13,12 +13,15 @@ export const renderCurrentModal = (modalsConfig, currentModalState, onModalClose
         <Modal
             isOpen={!!currentModalConfig}
             onRequestClose={onModalClose}
-            style={currentModalConfig.style}
-            contentLabel={currentModalConfig.title}
+            style={currentModalConfig && currentModalConfig.style}
+            contentLabel={currentModalConfig &&currentModalConfig.title}
+            ariaHideApp={false}
         >
-            <currentModalConfig.Component
-                {...currentModalState}
-            />
+            { currentModalConfig && (
+                <currentModalConfig.Component
+                    {...currentModalState}
+                />
+            )}
         </Modal>
     );
 };
