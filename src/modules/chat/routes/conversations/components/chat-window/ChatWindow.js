@@ -4,13 +4,19 @@ import { connect } from 'react-redux';
 
 import { getCurrentConversationObject } from 'Modules/chat/domains/conversations/ConversationsSelectors';
 import { getConversationId } from 'Modules/chat/domains/conversations/ConversationsPropGetters';
-import { getMessagesForCurrentConversation } from 'Modules/chat/domains/messages/MessagesSelectors';
-import { requestMessages } from 'Modules/chat/actions/MessagesActions';
 
 import {
     CHAT__MESSAGES_DEFAULT_LIMIT,
     CHAT__MESSAGES_DEFAULT_POLLING_INTERVAL,
 } from 'Modules/chat/domains/messages/MessagesConstants';
+
+import {
+    getMessagesAllLoadedForCurrentConversation,
+    getMessagesForCurrentConversation,
+    getMessagesLoadingStateForCurrentConversation,
+} from 'Modules/chat/domains/messages/MessagesSelectors';
+
+import { requestMessages } from 'Modules/chat/actions/MessagesActions';
 
 import MessagesList from 'Modules/chat/components/Message/MessagesList';
 
@@ -18,11 +24,13 @@ import MessagesList from 'Modules/chat/components/Message/MessagesList';
 const mapStateToProps = (state) => ({
     conversation: getCurrentConversationObject(state),
     messages: getMessagesForCurrentConversation(state),
+    isLoadingMessages: getMessagesLoadingStateForCurrentConversation(state),
+    allPreviousMessagesLoaded: getMessagesAllLoadedForCurrentConversation(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
     onLoadMoreMessages: ({ conversationId, offset, limit }) => dispatch(requestMessages({ conversationId, offset, limit })),
-    onPollNewMessages: (conversationId) => console.log('Poll conversation id' + conversationId),
+    onPollNewMessages: (conversationId) => null,
 });
 
 export class ChatWindow extends PureComponent {
@@ -86,11 +94,20 @@ export class ChatWindow extends PureComponent {
         });
     };
 
+    createReachedTopFn () {
+        if ( this.props.isLoadingMessages || this.props.allPreviousMessagesLoaded ) {
+            return null;
+        }
+
+        return this.requestOlderMessages;
+    }
+
     render () {
         return (
             <MessagesList
                 items={this.props.messages}
                 conversationId={getConversationId(this.props.conversation)}
+                onReachedTop={this.createReachedTopFn()}
             />
         )
     }

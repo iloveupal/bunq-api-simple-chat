@@ -1,5 +1,3 @@
-import lodashRange from 'lodash/range';
-
 import PropTypes from 'prop-types';
 import { HttpApi } from 'Framework/api';
 
@@ -68,15 +66,6 @@ export const ApiRequestsConfig = {
         propTypes: {
             userId: PropTypes.string.isRequired,
         },
-        mockResponse: () => ({
-            data: lodashRange(50).map(num => ({
-                conversation: {
-                    conversationId: String(num),
-                    name: `Chat #${num}`,
-                },
-                users: [],
-            }))
-        }),
     },
     [API_CHATS__SEND_MESSAGE]: {
         method: 'post',
@@ -124,4 +113,3 @@ export const ApiRequestsConfig = {
 };
 
 export const ApiService = (requestName, params) => HttpApi(ApiRequestsConfig[requestName], params);
-// export const ApiService = (requestName, params) => MockHttpApi(ApiRequestsConfig[requestName], params);

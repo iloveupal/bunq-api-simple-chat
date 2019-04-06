@@ -10,6 +10,7 @@ import {
 import {
     ACTION_TYPES__CHAT_SET_MESSAGES_LOADING_STATE,
     ACTION_TYPES__CHAT_SET_MESSAGES,
+    ACTION_TYPES__CHAT_SET_MESSAGES_ALL_LOADED,
 } from 'Modules/chat/action-types/MessagesActionTypes';
 
 import {
@@ -31,6 +32,7 @@ const initialState = {
     currentConversation: null,
     messages: {},
     messagesLoadingState: {},
+    messagesAllLoaded: {},
     currentRoute: null,
 };
 
@@ -77,12 +79,20 @@ export default function (state = initialState, action) {
                     [action.payload.conversationId]: action.payload.state,
                 },
             };
+        case ACTION_TYPES__CHAT_SET_MESSAGES_ALL_LOADED:
+            return {
+                ...state,
+                messagesAllLoaded: {
+                    ...state.messagesAllLoaded,
+                    [action.payload.conversationId]: action.payload.state,
+                }
+            };
         case ACTION_TYPES__CHAT_SET_MESSAGES:
             return {
                 ...state,
                 messages: {
                     ...state.messages,
-                    [action.payload.conversationId]: mergeMessages(state.messages.conversationId, action.payload),
+                    [action.payload.conversationId]: mergeMessages(state.messages[action.payload.conversationId], action.payload),
                 },
             };
         default:

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
-import ellipsis from './Ellipsis.svg';
+import ellipsis from './images/Ellipsis.svg';
 
 const SpinnerImage = styled.img`
     width: 30px;

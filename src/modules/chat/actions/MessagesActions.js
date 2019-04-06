@@ -3,6 +3,7 @@ import { makeActionCreator } from 'Framework/reduxActions';
 import {
     ACTION_TYPES__CHAT_SET_MESSAGES,
     ACTION_TYPES__CHAT_SET_MESSAGES_LOADING_STATE,
+    ACTION_TYPES__CHAT_SET_MESSAGES_ALL_LOADED,
 } from 'Modules/chat/action-types/MessagesActionTypes';
 
 import {
@@ -15,6 +16,7 @@ import { navigateToError } from './NavigationActions';
 
 export const setMessages = makeActionCreator(ACTION_TYPES__CHAT_SET_MESSAGES);
 export const setMessagesLoadingState = makeActionCreator(ACTION_TYPES__CHAT_SET_MESSAGES_LOADING_STATE);
+export const setMessagesAllLoaded = makeActionCreator(ACTION_TYPES__CHAT_SET_MESSAGES_ALL_LOADED);
 
 export const requestMessages = ({ conversationId, limit, offset }) => (dispatch) => {
     dispatch(setMessagesLoadingState({ conversationId, state: true }));
@@ -33,6 +35,10 @@ export const requestMessages = ({ conversationId, limit, offset }) => (dispatch)
                     conversationId,
                     data,
                 }));
+
+                if ( data.length < limit ) {
+                    dispatch(setMessagesAllLoaded({ conversationId, state: true }));
+                }
             }
         )
         .catch(

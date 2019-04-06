@@ -69,7 +69,7 @@ class MessageListItem extends PureComponent {
                     { renderUserCircle(this.props) }
                 </CircleContainer>
                 <Text>
-                    { this.props.data.message }
+                    { this.props.data.message.slice(0, 40) }
                 </Text>
             </Container>
         );
