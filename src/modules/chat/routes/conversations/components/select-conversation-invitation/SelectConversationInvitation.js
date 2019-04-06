@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-    width: 100%;
+    flex: 1 1 auto;
     height: 100%;
     display: flex;
     flex-flow: row nowrap;

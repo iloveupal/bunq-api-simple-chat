@@ -12,6 +12,8 @@ import {
     CHAT__MESSAGES_DEFAULT_POLLING_INTERVAL,
 } from 'Modules/chat/domains/messages/MessagesConstants';
 
+import MessagesList from 'Modules/chat/components/Message/MessagesList';
+
 
 const mapStateToProps = (state) => ({
     conversation: getCurrentConversationObject(state),
@@ -86,9 +88,10 @@ export class ChatWindow extends PureComponent {
 
     render () {
         return (
-            <div style={{ color: 'white' }}>
-                Test { this.props.messages.length }
-            </div>
+            <MessagesList
+                items={this.props.messages}
+                conversationId={getConversationId(this.props.conversation)}
+            />
         )
     }
 }

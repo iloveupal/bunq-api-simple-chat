@@ -17,6 +17,7 @@ const ListWrapper = styled.div`
     display: block;
     height: calc(100vh - 50px);
     overflow-y: scroll;
+    width: 300px;
 `;
 
 
