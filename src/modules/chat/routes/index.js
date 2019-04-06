@@ -4,7 +4,7 @@ import {
     CHAT_ROUTE__CONVERSATIONS,
     CHAT_ROUTE__LOADING,
     CHAT_ROUTE__LOGIN,
-} from 'Modules/chat/constants/ChatRoutes';
+} from './RoutesConstants';
 
 import ChatRouteLoading from './loading/ChatRouteLoading';
 import ChatRouteLogin from './login/ChatRouteLogin';
@@ -25,3 +25,4 @@ export default {
         Component: ChatRouteConversations,
     }
 };
+

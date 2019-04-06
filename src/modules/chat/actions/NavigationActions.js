@@ -1,14 +1,18 @@
 import {makeActionCreator} from 'Framework/reduxActions';
-import { ACTION_TYPES__CHAT_SET_CURRENT_ROUTE } from 'Modules/chat/action-types/ChatActionTypes';
+import { ACTION_TYPES__CHAT_SET_CURRENT_ROUTE } from 'Modules/chat/action-types/NavigationActionTypes';
 import {
-    createRoute,
     CHAT_ROUTE__LOGIN,
     CHAT_ROUTE__LOADING,
     CHAT_ROUTE__CONVERSATIONS,
     CHAT_ROUTE__ERROR,
-} from 'Modules/chat/constants/ChatRoutes';
+} from 'Modules/chat/routes/RoutesConstants';
 
 const setCurrentRoute = makeActionCreator(ACTION_TYPES__CHAT_SET_CURRENT_ROUTE);
+
+const createRoute = (name, params = null) => ({
+    name,
+    params,
+});
 
 const navigate = (route, params) => (dispatch) => {
     dispatch(

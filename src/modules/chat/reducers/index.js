@@ -1,8 +1,11 @@
 import {
     ACTION_TYPES__CHAT_SET_CURRENT_ROUTE,
+} from 'Modules/chat/action-types/NavigationActionTypes';
+
+import {
     ACTION_TYPES__CHAT_SET_CURRENT_USER,
     ACTION_TYPES__CHAT_SET_USERS,
-} from 'Modules/chat/action-types/ChatActionTypes';
+} from 'Modules/chat/action-types/UsersActionTypes';
 
 import {
     ACTION_TYPES__CHAT_SET_MESSAGES_LOADING_STATE,

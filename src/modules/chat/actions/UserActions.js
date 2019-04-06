@@ -3,7 +3,7 @@ import { makeActionCreator } from 'Framework/reduxActions';
 import {
     ACTION_TYPES__CHAT_SET_CURRENT_USER,
     ACTION_TYPES__CHAT_SET_USERS,
-} from 'Modules/chat/action-types/ChatActionTypes';
+} from 'Modules/chat/action-types/UsersActionTypes';
 
 import {
     navigateToConversations,

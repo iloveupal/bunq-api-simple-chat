@@ -9,18 +9,18 @@ import MessageListItem from './MessageListItem';
 
 const ListWrapper = styled.div`
     flex: 1 1 auto;
-    
     display: flex;
-    
     height: calc( 100vh - 100px );
     overflow-y: scroll;
+    padding-top: 20px;
+    box-sizing: border-box;
 `;
 
 
 export class MessagesList extends PureComponent {
     static propTypes = {
         virtual: PropTypes.object.isRequired,
-    }
+    };
 
     render () {
         return (
