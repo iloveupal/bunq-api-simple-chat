@@ -11,12 +11,14 @@ import UserColorCircle from 'Modules/chat/components/User/UserColorCircle';
 
 
 const Container = styled.div`
+    flex: 0 0 auto;
     display: flex;
     flex-flow: row nowrap;
     padding-left: 15px;
     box-sizing: border-box;
-    align-items: center;
-    height: 30px;
+    align-items: flex-start;
+    min-height: 30px;
+    padding-bottom: 15px;
 `;
 
 const CircleContainer = styled.div`
@@ -27,10 +29,13 @@ const CircleContainer = styled.div`
     width: 45px;
 `;
 
-const Text = styled.div`
+const Text = styled.span`
+    display: flex;
+    flex: 1;
     color: white;
     font-family: sans-serif;
     font-size: 14px;
+    word-break: break-word;
 `;
 
 const renderUserCircle = (props) => {
@@ -42,10 +47,12 @@ const renderUserCircle = (props) => {
         return null;
     }
 
+    const sender = props.userData[props.data.senderId];
+
     return (
         <UserColorCircle
             id={props.data.senderId}
-            name={getUserName(props.userData[props.data.senderId])}
+            name={getUserName(sender)}
             small
         />
     );
@@ -69,7 +76,7 @@ class MessageListItem extends PureComponent {
                     { renderUserCircle(this.props) }
                 </CircleContainer>
                 <Text>
-                    { this.props.data.message.slice(0, 40) }
+                    { this.props.data.message }
                 </Text>
             </Container>
         );
