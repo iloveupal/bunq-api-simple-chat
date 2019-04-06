@@ -11,6 +11,7 @@ import {
     ACTION_TYPES__CHAT_SET_MESSAGES_LOADING_STATE,
     ACTION_TYPES__CHAT_SET_MESSAGES,
     ACTION_TYPES__CHAT_SET_MESSAGES_ALL_LOADED,
+    ACTION_TYPES__CHAT_SET_MESSAGES_SENDING_STATE,
 } from 'Modules/chat/action-types/MessagesActionTypes';
 
 import {
@@ -32,6 +33,7 @@ const initialState = {
     currentConversation: null,
     messages: {},
     messagesLoadingState: {},
+    messagesSendingState: {},
     messagesAllLoaded: {},
     currentRoute: null,
 };
@@ -93,6 +95,14 @@ export default function (state = initialState, action) {
                 messages: {
                     ...state.messages,
                     [action.payload.conversationId]: mergeMessages(state.messages[action.payload.conversationId], action.payload),
+                },
+            };
+        case ACTION_TYPES__CHAT_SET_MESSAGES_SENDING_STATE:
+            return {
+                ...state,
+                messagesSendingState: {
+                    ...state.messagesSendingState,
+                    [action.payload.conversationId]: action.payload.state,
                 },
             };
         default:

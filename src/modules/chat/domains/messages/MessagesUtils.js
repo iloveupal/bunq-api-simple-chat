@@ -15,3 +15,11 @@ export const mergeMessages = (messages = [], { data, offset, limit, isNew }) => 
 
     return lodashUniqBy(newMessagesArray, (message) => message.id);
 };
+
+export const getLatestMessageId = (messages = []) => {
+    if ( !messages.length ) {
+        return -1;
+    }
+
+    return parseInt(messages[messages.length - 1].id, 10);
+};

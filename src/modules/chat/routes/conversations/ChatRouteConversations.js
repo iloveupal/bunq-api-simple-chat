@@ -16,17 +16,22 @@ import {
     setCurrentConversation,
 } from 'Modules/chat/actions/ConversationsActions';
 
+import {
+    getMessagesSendingStateForCurrentConversation,
+} from 'Modules/chat/domains/messages/MessagesSelectors';
+
 import ConversationList from 'Modules/chat/components/Conversation/ConversationList';
 import Header from 'Modules/chat/components/Header/Header';
 import ChatRouteConversationComponent from './ChatRouteConversationComponent';
 
 import ChatWindow from './components/chat-window';
 import SelectConversationInvitation from './components/select-conversation-invitation';
+import MessageCompose from './components/message-compose';
 
 
 const mapStateToProps = (state) => ({
     conversations: getConversationsOfCurrentUser(state),
-    isConversationSelected: !!getCurrentConversation(state)
+    isConversationSelected: !!getCurrentConversation(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -52,6 +57,7 @@ export class ChatRouteConversations extends PureComponent {
         this.props.onConversationSelected(conversationId);
     };
 
+
     render () {
         return (
             <Fragment>
@@ -62,7 +68,10 @@ export class ChatRouteConversations extends PureComponent {
                         onClick={this.handleConversationListItemClick}
                     />
                     {this.props.isConversationSelected ? (
-                        <ChatWindow />
+                        <Fragment>
+                            <ChatWindow />
+                            <MessageCompose />
+                        </Fragment>
                     ) : (
                         <SelectConversationInvitation />
                     )}

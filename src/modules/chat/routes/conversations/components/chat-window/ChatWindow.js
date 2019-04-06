@@ -16,7 +16,7 @@ import {
     getMessagesLoadingStateForCurrentConversation,
 } from 'Modules/chat/domains/messages/MessagesSelectors';
 
-import { requestMessages } from 'Modules/chat/actions/MessagesActions';
+import { requestMessages, pollNewMessages } from 'Modules/chat/actions/MessagesActions';
 
 import MessagesList from 'Modules/chat/components/Message/MessagesList';
 
@@ -30,7 +30,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     onLoadMoreMessages: ({ conversationId, offset, limit }) => dispatch(requestMessages({ conversationId, offset, limit })),
-    onPollNewMessages: (conversationId) => null,
+    onPollNewMessages: (conversationId) => dispatch(pollNewMessages(conversationId)),
 });
 
 export class ChatWindow extends PureComponent {
