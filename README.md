@@ -2,6 +2,10 @@
 
 Hey, this is a test assignment for bunq. 
 
+Deployment link (make sure protocol is http, or it won't work):
+
+http://bunq-api-simple-chat.herokuapp.com/index.html
+
 **Commands**
 
 ```
