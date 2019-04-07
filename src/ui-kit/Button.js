@@ -33,7 +33,7 @@ export default class Button extends PureComponent {
         isDisabled: PropTypes.bool,
         children: PropTypes.node,
         onClick: PropTypes.func.isRequired,
-    }
+    };
 
     render () {
         return (

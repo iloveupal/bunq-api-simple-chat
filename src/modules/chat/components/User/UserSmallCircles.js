@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import styled from 'styled-components';
 
-import UserColorCircle from 'Modules/chat/components/User/UserColorCircle';
-
 import { getUsers } from 'Modules/chat/domains/users/UsersSelectors';
+import {
+    getUserName
+} from 'Modules/chat/domains/users/UsersPropGetters';
+
+import UserColorCircle from 'Modules/chat/components/User/UserColorCircle';
 
 
 const CirclesContainer = styled.div`
@@ -38,7 +40,7 @@ export class UserSmallCircles extends PureComponent {
                         <ItemContainer key={userid}>
                             <UserColorCircle
                                 id={userid}
-                                name={this.props.usersData[userid] && this.props.usersData[userid].name}
+                                name={getUserName(this.props.usersData[userid])}
                                 small
                             />
                         </ItemContainer>

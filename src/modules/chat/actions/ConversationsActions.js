@@ -10,7 +10,6 @@ import {
 } from 'Modules/chat/action-types/ConversationsActionTypes';
 
 import {
-    CONVERSATION_TYPE__GROUP,
     CONVERSATION_TYPE__PERSONAL,
 } from 'Modules/chat/domains/conversations/ConversationsConstants';
 

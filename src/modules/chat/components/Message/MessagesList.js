@@ -55,7 +55,7 @@ export default class MessagesList extends PureComponent {
 
     handleOnReachedTop = lodashThrottle(() => {
         this.props.onReachedTop();
-    }, 3000);
+    }, REACHED_TOP_EVENT_THROTTLE);
 
     scrollToBottom () {
         this.Container.scrollTo(0, this.Container.scrollHeight);

@@ -1,7 +1,12 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { getUserId, getUserName } from 'Modules/chat/domains/users/UsersPropGetters';
+
+import {
+    getUserId,
+    getUserName,
+} from 'Modules/chat/domains/users/UsersPropGetters';
+
 import UserColorCircle from 'Modules/chat/components/User/UserColorCircle';
 import UserName from 'Modules/chat/components/User/UserName';
 

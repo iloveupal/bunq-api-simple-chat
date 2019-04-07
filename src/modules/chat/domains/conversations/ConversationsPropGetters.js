@@ -1,3 +1,8 @@
-export const getConversationName = (data) => data.conversation.name;
-export const getConversationId = (data) => data.conversation.conversationId;
-export const getConversationType = (data) => data.conversation.type;
+import lodashGet from 'lodash/get';
+
+
+export const getConversationName = (data) => lodashGet(data, 'conversation.name');
+export const getConversationId = (data) => lodashGet(data, 'conversation.conversationId');
+export const getConversationType = (data) => lodashGet(data, 'conversation.type');
+
+export const getConversationUsers = (data) => lodashGet(data, 'users');

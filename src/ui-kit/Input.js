@@ -22,7 +22,7 @@ export default class Input extends PureComponent {
     static propTypes = {
         value: PropTypes.string.isRequired,
         onChange: PropTypes.func.isRequired,
-    }
+    };
 
     handleChange = (event) => {
         this.props.onChange(event.target.value);

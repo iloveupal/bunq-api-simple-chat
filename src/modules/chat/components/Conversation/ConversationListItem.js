@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import {
+    getConversationUsers,
+} from 'Modules/chat/domains/conversations/ConversationsPropGetters';
+
+import {
     renderConversationName,
 } from 'Modules/chat/domains/conversations/ConversationsUtils';
 
@@ -56,7 +60,7 @@ export default class ConversationListItem extends PureComponent {
                 </ConversationName>
 
                 <UserSmallCircles
-                    users={this.props.data.users}
+                    users={getConversationUsers(this.props.data)}
                 />
             </Container>
         );

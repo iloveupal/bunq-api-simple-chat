@@ -8,7 +8,7 @@ import { renderCurrentModal } from 'Framework/modal';
 import routes from './routes';
 import modals from './modals';
 
-import { initializeChatModule } from 'Modules/chat/actions/ChatActions';
+import { initializeChatModule } from 'Modules/chat/actions/ModuleActions';
 
 
 const mapStateToProps = (state) => ({

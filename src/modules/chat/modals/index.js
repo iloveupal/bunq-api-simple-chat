@@ -1,6 +1,5 @@
 import {
     MODAL_CREATE_CONVERSATION,
-    MODAL_VIEW_CONVERSATION
 } from './ModalConstants';
 
 import CreateConversationModal from './create-conversation/CreateConversationModal';

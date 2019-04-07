@@ -1,15 +1,17 @@
-import React, {Fragment, PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 
+import { getUserId, getUserName } from 'Modules/chat/domains/users/UsersPropGetters';
+
 import { getCurrentUserObject } from 'Modules/chat/domains/users/UsersSelectors';
+import { getConversationsIsLoading } from 'Modules/chat/domains/conversations/ConversationsSelectors';
+
 import { logout } from 'Modules/chat/actions/UserActions';
 import { openCreateConversationModal } from 'Modules/chat/actions/ModalActions';
-import { getUserId, getUserName } from 'Modules/chat/domains/users/UsersPropGetters';
-import { getConversationsIsLoading } from 'Modules/chat/domains/conversations/ConversationsSelectors';
 
 import UserColorCircle from 'Modules/chat/components/User/UserColorCircle';
 import Spinner from 'Modules/chat/components/Spinner';
@@ -97,7 +99,11 @@ export class Header extends PureComponent {
                     </HeaderLeftSubgroup>
                 )}
                 <HeaderRightSubgroup>
-                    <UserColorCircle small id={getUserId(this.props.currentUser)} name={getUserName(this.props.currentUser)}/>
+                    <UserColorCircle
+                        small
+                        id={getUserId(this.props.currentUser)}
+                        name={getUserName(this.props.currentUser)}
+                    />
                     <LogoutButton onClick={this.props.onLogout}>
                         Logout
                     </LogoutButton>

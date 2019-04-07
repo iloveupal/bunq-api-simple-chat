@@ -4,8 +4,13 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
-import {getUsers} from 'Modules/chat/domains/users/UsersSelectors';
-import {getUserName} from 'Modules/chat/domains/users/UsersPropGetters';
+import { getUsers } from 'Modules/chat/domains/users/UsersSelectors';
+
+import {
+    getMessageSenderId
+} from 'Modules/chat/domains/messages/MessagesPropGetters';
+
+import { getUserName } from 'Modules/chat/domains/users/UsersPropGetters';
 
 import UserColorCircle from 'Modules/chat/components/User/UserColorCircle';
 
@@ -43,15 +48,15 @@ const renderUserCircle = (props) => {
 
     const prevMessage = props.array[props.index - 1];
 
-    if ( prevMessage && ( prevMessage.senderId === props.data.senderId )) {
+    if ( prevMessage && ( getMessageSenderId(prevMessage) === getMessageSenderId(props.data) )) {
         return null;
     }
 
-    const sender = props.userData[props.data.senderId];
+    const sender = props.userData[getMessageSenderId(props.data)];
 
     return (
         <UserColorCircle
-            id={props.data.senderId}
+            id={getMessageSenderId(props.data)}
             name={getUserName(sender)}
             small
         />

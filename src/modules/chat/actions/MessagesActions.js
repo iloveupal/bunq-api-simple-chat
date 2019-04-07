@@ -13,14 +13,15 @@ import {
     getLatestMessageIdByConversation,
 } from 'Modules/chat/domains/messages/MessagesSelectors';
 
+import { getCurrentConversation } from 'Modules/chat/domains/conversations/ConversationsSelectors';
+import { getCurrentUser } from 'Modules/chat/domains/users/UsersSelectors';
+
+import { navigateToError } from './NavigationActions';
+
 import {
     ApiService,
     API_CHATS__GET_LIMITED_MESSAGES, API_CHATS__SEND_MESSAGE, API_CHATS__POLL_MESSAGES,
 } from 'Modules/chat/api/ChatsApi';
-
-import { navigateToError } from './NavigationActions';
-import { getCurrentConversation } from 'Modules/chat/domains/conversations/ConversationsSelectors';
-import { getCurrentUser } from 'Modules/chat/domains/users/UsersSelectors';
 
 
 export const setMessages = makeActionCreator(ACTION_TYPES__CHAT_SET_MESSAGES);
@@ -141,6 +142,4 @@ export const pollNewMessages = (conversationId) => (dispatch, getState) => {
                 navigateToError({error});
             }
         );
-
-
 };

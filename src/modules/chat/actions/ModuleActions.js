@@ -16,7 +16,7 @@ import {
 } from './UserActions';
 
 
-export const finishChatModuleInitialization = (users) => (dispatch) => {
+const finishChatModuleInitialization = (users) => (dispatch) => {
     dispatch(setUsers(users));
     dispatch(navigateToLogin());
 };
