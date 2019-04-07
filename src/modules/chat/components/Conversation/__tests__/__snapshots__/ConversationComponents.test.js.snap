@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConversationInfoBanner should match snapshots 1`] = `
+<ConversationInfoBanner__Container>
+  <ConversationInfoBanner__NameAndTypeContainer>
+    <ConversationInfoBanner__Name>
+      Test
+    </ConversationInfoBanner__Name>
+    <ConversationInfoBanner__Type>
+      Group
+    </ConversationInfoBanner__Type>
+  </ConversationInfoBanner__NameAndTypeContainer>
+  <Connect(UserSmallCircles)
+    users={
+      Array [
+        Object {
+          "userid": "1",
+        },
+        Object {
+          "userid": "2",
+        },
+      ]
+    }
+  />
+</ConversationInfoBanner__Container>
+`;

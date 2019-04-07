@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should match snapshot 1`] = `
+<Header__Container>
+  <Header__HeaderLeftSubgroup>
+    <CreateConversationButton
+      onClick={[MockFunction]}
+    />
+    <Connect(ConversationInfoBanner) />
+  </Header__HeaderLeftSubgroup>
+  <Header__HeaderRightSubgroup>
+    <UserColorCircle
+      id="1 "
+      name="Test"
+      small={true}
+    />
+    <Header__LogoutButton
+      onClick={[MockFunction]}
+    >
+      Logout
+    </Header__LogoutButton>
+  </Header__HeaderRightSubgroup>
+</Header__Container>
+`;

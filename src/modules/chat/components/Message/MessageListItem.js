@@ -63,7 +63,7 @@ const renderUserCircle = (props) => {
     );
 };
 
-class MessageListItem extends PureComponent {
+export class MessageListItem extends PureComponent {
     static propTypes = {
         data: PropTypes.object.isRequired,
         // we add context of the message in the array so we can display message differently depending on it's neighbours.

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageListItem should match snapshot 1`] = `
+<MessageListItem__Container>
+  <MessageListItem__CircleContainer>
+    <UserColorCircle
+      id="1"
+      name="Test"
+      small={true}
+    />
+  </MessageListItem__CircleContainer>
+  <MessageListItem__Text>
+    1
+  </MessageListItem__Text>
+</MessageListItem__Container>
+`;

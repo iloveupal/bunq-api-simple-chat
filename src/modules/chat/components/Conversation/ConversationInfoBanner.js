@@ -12,6 +12,7 @@ import {
     renderConversationName,
     renderConversationType,
 } from 'Modules/chat/domains/conversations/ConversationsUtils';
+
 import UserSmallCircles from 'Modules/chat/components/User/UserSmallCircles';
 
 
@@ -27,14 +28,14 @@ const NameAndTypeContainer = styled.div`
     padding-right: 15px;
 `;
 
-const Name = styled.div`
+export const Name = styled.div`
     font-family: sans-serif;
     font-size: 13px;
     color: white;
     font-weight: bold;
 `;
 
-const Type = styled.div`
+export const Type = styled.div`
     font-family: sans-serif;
     font-size: 13px;
     color: #ccc;
@@ -42,7 +43,7 @@ const Type = styled.div`
 
 
 
-class ConversationInfoBanner extends PureComponent {
+export class ConversationInfoBanner extends PureComponent {
     static propTypes = {
         data: PropTypes.object,
     };
