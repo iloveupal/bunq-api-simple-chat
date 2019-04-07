@@ -25,6 +25,7 @@ module.exports = {
             Modules: path.resolve(__dirname, 'src/modules'),
             Config: path.resolve(__dirname, 'src/config'),
             Utils: path.resolve(__dirname, 'src/utils'),
+            Ui: path.resolve(__dirname, 'src/ui-kit'),
         }
     },
 };
