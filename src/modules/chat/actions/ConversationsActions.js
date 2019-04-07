@@ -6,6 +6,7 @@ import {
     ACTION_TYPES__CHAT_CONVERSATIONS_SET,
     ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT,
     ACTION_TYPES__CHAT_CONVERSATION_ADD,
+    ACTION_TYPES__SET_IS_CONVERSATION_CREATING,
 } from 'Modules/chat/action-types/ConversationsActionTypes';
 
 import {
@@ -36,6 +37,7 @@ export const setConversationsLoadingState = makeActionCreator(ACTION_TYPES__CHAT
 export const setUserConversations = makeActionCreator(ACTION_TYPES__CHAT_CONVERSATIONS_SET);
 export const addConversation = makeActionCreator(ACTION_TYPES__CHAT_CONVERSATION_ADD);
 export const setCurrentConversation = makeActionCreator(ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT);
+export const setIsCreatingConversation = makeActionCreator(ACTION_TYPES__SET_IS_CONVERSATION_CREATING);
 
 export const loadConversations = () => (dispatch, getState) => {
     const state = getState();
@@ -57,6 +59,8 @@ export const loadConversations = () => (dispatch, getState) => {
 
 export const createConversation = ({ name, type, participants }) => (dispatch) => {
     const users = participants.map((user) => getUserId(user));
+
+    dispatch(setIsCreatingConversation(true));
 
     ApiService(
         (
@@ -80,16 +84,21 @@ export const createConversation = ({ name, type, participants }) => (dispatch) =
                                 conversationId: data.id,
                                 name,
                             },
-                            users: participants,
+                            users: participants.map((user) => ({
+                                conversationId: data.id,
+                                userid: getUserId(user),
+                            })),
                         },
                         id: data.id,
                     }));
                     dispatch(setCurrentConversation(data.id));
+
                     dispatch(closeModal());
                 }
                 else {
-
+                    // todo: add some sort of error banner.
                 }
+                dispatch(setIsCreatingConversation(false));
             }
         )
         .catch((error) => { navigateToError({ error }) });

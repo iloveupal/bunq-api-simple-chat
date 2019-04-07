@@ -10,3 +10,5 @@ export const getConversationsIsLoading = (state) => lodashGet(state, 'chat.userC
 export const getCurrentConversation = (state) => lodashGet(state, 'chat.currentConversation', null);
 
 export const getCurrentConversationObject = (state) => getConversationsOfCurrentUser(state)[getCurrentConversation(state)];
+
+export const getIsCreatingConversation = (state) => state.chat.isCreatingConversation || false;

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -14,6 +14,7 @@ import { getConversationsIsLoading } from 'Modules/chat/domains/conversations/Co
 import UserColorCircle from 'Modules/chat/components/User/UserColorCircle';
 import Spinner from 'Modules/chat/components/Spinner';
 import CreateConversationButton from 'Modules/chat/components/Conversation/CreateConversationButton';
+import ConversationInfoBanner from 'Modules/chat/components/Conversation/ConversationInfoBanner';
 
 
 const Container = styled.div`
@@ -34,6 +35,13 @@ const HeaderRightSubgroup = styled.div`
     display: flex;
     flex-flow: row nowrap;
     align-items: baseline;
+    padding-right: 30px;
+`;
+
+const HeaderLeftSubgroup = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
     padding-right: 30px;
 `;
 
@@ -83,7 +91,10 @@ export class Header extends PureComponent {
                         <Spinner />
                     </HeaderSpinnerContainer>
                 ) : (
-                    <CreateConversationButton onClick={this.props.onCreateConversation}/>
+                    <HeaderLeftSubgroup>
+                        <CreateConversationButton onClick={this.props.onCreateConversation}/>
+                        <ConversationInfoBanner />
+                    </HeaderLeftSubgroup>
                 )}
                 <HeaderRightSubgroup>
                     <UserColorCircle small id={getUserId(this.props.currentUser)} name={getUserName(this.props.currentUser)}/>

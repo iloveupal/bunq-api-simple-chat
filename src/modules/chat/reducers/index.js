@@ -19,6 +19,7 @@ import {
     ACTION_TYPES__CHAT_CONVERSATIONS_SET,
     ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT,
     ACTION_TYPES__CHAT_CONVERSATION_ADD,
+    ACTION_TYPES__SET_IS_CONVERSATION_CREATING,
 } from 'Modules/chat/action-types/ConversationsActionTypes';
 
 import {
@@ -36,6 +37,7 @@ const initialState = {
     users: {},
     currentUser: null,
     currentConversation: null,
+    isCreatingConversation: false,
     messages: {},
     messagesLoadingState: {},
     messagesSendingState: {},
@@ -126,6 +128,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 currentModal: action.payload,
+            };
+        case ACTION_TYPES__SET_IS_CONVERSATION_CREATING:
+            return {
+                ...state,
+                isCreatingConversation: action.payload,
             };
         default:
             return { ...state };

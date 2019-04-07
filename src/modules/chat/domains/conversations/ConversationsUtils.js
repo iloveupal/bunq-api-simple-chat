@@ -2,7 +2,8 @@ import {reduceArrayByKey} from 'Utils/object';
 
 import {
     getConversationName,
-    getConversationId
+    getConversationId,
+    getConversationType,
 } from './ConversationsPropGetters';
 
 
@@ -17,4 +18,10 @@ export const renderConversationName = (data) => {
     const conversationId = getConversationId(data);
 
     return conversationName || `Conversation #${conversationId}`;
+};
+
+export const renderConversationType = (data) => {
+    const conversationType = getConversationType(data);
+
+    return conversationType === '1' ? 'Personal' : 'Group';
 };

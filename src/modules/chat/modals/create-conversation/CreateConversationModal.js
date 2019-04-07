@@ -7,15 +7,19 @@ import styled from 'styled-components';
 import { Input, Switch, MultipleSelect, Button, ButtonRow } from 'Ui';
 
 import { getUsersArray } from 'Modules/chat/domains/users/UsersSelectors';
+import { getIsCreatingConversation } from 'Modules/chat/domains/conversations/ConversationsSelectors'
 import { getUserId } from 'Modules/chat/domains/users/UsersPropGetters';
 import { closeModal } from 'Modules/chat/actions/ModalActions';
+
 import { createConversation } from 'Modules/chat/actions/ConversationsActions';
+
 import {
     CONVERSATION_TYPE__GROUP,
     CONVERSATION_TYPE__PERSONAL,
 } from 'Modules/chat/domains/conversations/ConversationsConstants';
 
 import SelectableUserListItem from 'Modules/chat/components/User/SelectableUserListItem';
+import Spinner from 'Modules/chat/components/Spinner';
 
 
 const Container = styled.div`
@@ -71,6 +75,7 @@ function renderUsersInMultiselect ({ option, isSelected, onClick }) {
 class CreateConversationModal extends PureComponent {
     static propTypes = {
         users: PropTypes.array.isRequired,
+        isSubmitting: PropTypes.bool.isRequired,
         onSubmitForm: PropTypes.func.isRequired,
         onCloseModal: PropTypes.func.isRequired,
     };
@@ -166,10 +171,14 @@ class CreateConversationModal extends PureComponent {
                         </Button>
                         <Button
                             primary
-                            isDisabled={!this.canSubmit()}
+                            isDisabled={this.props.isSubmitting || !this.canSubmit()}
                             onClick={this.submitForm}
                         >
-                            Create
+                            { this.props.isSubmitting ? (
+                                <Spinner />
+                            ) : (
+                                "Create"
+                            ) }
                         </Button>
                     </ButtonRow>
                 </FormElement>
@@ -180,6 +189,7 @@ class CreateConversationModal extends PureComponent {
 
 const mapStateToProps = (state) => ({
     users: getUsersArray(state),
+    isSubmitting: getIsCreatingConversation(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
