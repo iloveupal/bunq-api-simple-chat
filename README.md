@@ -1,6 +1,6 @@
 **Simple Bunq API Chat**
 
-Hey, this is a test assignment from bunq. 
+Hey, this is a test assignment for bunq. 
 
 **Commands**
 
