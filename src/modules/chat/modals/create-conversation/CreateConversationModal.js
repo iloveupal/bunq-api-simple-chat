@@ -72,7 +72,7 @@ function renderUsersInMultiselect ({ option, isSelected, onClick }) {
 }
 
 
-class CreateConversationModal extends PureComponent {
+export class CreateConversationModal extends PureComponent {
     static propTypes = {
         users: PropTypes.array.isRequired,
         isSubmitting: PropTypes.bool.isRequired,
@@ -133,6 +133,7 @@ class CreateConversationModal extends PureComponent {
                     <FormElementTitle>Conversation Type</FormElementTitle>
                     <FormElementComponent>
                         <Switch
+                            property={'type'}
                             options={CONVERSATION_TYPES}
                             value={this.state.type}
                             onChange={this.createFormChangeFunction('type')}
@@ -144,6 +145,7 @@ class CreateConversationModal extends PureComponent {
                         <FormElementTitle>Name</FormElementTitle>
                         <FormElementComponent>
                             <Input
+                                property={'name'}
                                 placeholder={'Enter conversation name...'}
                                 value={this.state.name}
                                 onChange={this.createFormChangeFunction('name')}
@@ -155,6 +157,7 @@ class CreateConversationModal extends PureComponent {
                     <FormElementTitle>Participants</FormElementTitle>
                     <FormElementComponent>
                         <MultipleSelect
+                            property={'participants'}
                             options={this.props.users}
                             value={this.state.participants}
                             renderItem={renderUsersInMultiselect}
@@ -170,6 +173,7 @@ class CreateConversationModal extends PureComponent {
                             Cancel
                         </Button>
                         <Button
+                            role={'submit'}
                             primary
                             isDisabled={this.props.isSubmitting || !this.canSubmit()}
                             onClick={this.submitForm}

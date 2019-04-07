@@ -16,9 +16,6 @@ import {
     setCurrentConversation,
 } from 'Modules/chat/actions/ConversationsActions';
 
-import {
-    getMessagesSendingStateForCurrentConversation,
-} from 'Modules/chat/domains/messages/MessagesSelectors';
 
 import ConversationList from 'Modules/chat/components/Conversation/ConversationList';
 import Header from 'Modules/chat/components/Header/Header';
