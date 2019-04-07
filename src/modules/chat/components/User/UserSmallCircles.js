@@ -38,7 +38,7 @@ export class UserSmallCircles extends PureComponent {
                         <ItemContainer key={userid}>
                             <UserColorCircle
                                 id={userid}
-                                name={this.props.usersData[userid].name}
+                                name={this.props.usersData[userid] && this.props.usersData[userid].name}
                                 small
                             />
                         </ItemContainer>

@@ -18,6 +18,7 @@ import {
     ACTION_TYPES__CHAT_CONVERSATIONS_SET_LOADING_STATE,
     ACTION_TYPES__CHAT_CONVERSATIONS_SET,
     ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT,
+    ACTION_TYPES__CHAT_CONVERSATION_ADD,
 } from 'Modules/chat/action-types/ConversationsActionTypes';
 
 import {
@@ -72,6 +73,17 @@ export default function (state = initialState, action) {
                     ...state.userConversations,
                     [action.payload.userId]: action.payload.conversations,
                 },
+            };
+        case ACTION_TYPES__CHAT_CONVERSATION_ADD:
+            return {
+                ...state,
+                userConversations: {
+                    ...state.userConversations,
+                    [state.currentUser]: {
+                        ...state.userConversations[state.currentUser],
+                        [action.payload.id]: action.payload.data,
+                    },
+                }
             };
         case ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT:
             return {

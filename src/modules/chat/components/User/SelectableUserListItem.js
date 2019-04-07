@@ -16,6 +16,16 @@ const Container = styled.div`
     cursor: pointer;
     
     background-color: ${(props) => props.isSelected ? '#333' : '#222'};
+    
+    &:first-child {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    
+    &:last-child {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
 `;
 
 const UserNameContainer = styled.div`

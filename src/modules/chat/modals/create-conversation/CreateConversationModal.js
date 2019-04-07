@@ -5,8 +5,15 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { Input, Switch, MultipleSelect, Button, ButtonRow } from 'Ui';
+
 import { getUsersArray } from 'Modules/chat/domains/users/UsersSelectors';
 import { getUserId } from 'Modules/chat/domains/users/UsersPropGetters';
+import { closeModal } from 'Modules/chat/actions/ModalActions';
+import { createConversation } from 'Modules/chat/actions/ConversationsActions';
+import {
+    CONVERSATION_TYPE__GROUP,
+    CONVERSATION_TYPE__PERSONAL,
+} from 'Modules/chat/domains/conversations/ConversationsConstants';
 
 import SelectableUserListItem from 'Modules/chat/components/User/SelectableUserListItem';
 
@@ -47,7 +54,7 @@ const Title = styled.div`
     padding-bottom: 40px;
 `;
 
-const CONVERSATION_TYPES = ['group', 'personal'];
+const CONVERSATION_TYPES = [CONVERSATION_TYPE__PERSONAL, CONVERSATION_TYPE__GROUP];
 
 function renderUsersInMultiselect ({ option, isSelected, onClick }) {
     return (
@@ -64,6 +71,8 @@ function renderUsersInMultiselect ({ option, isSelected, onClick }) {
 class CreateConversationModal extends PureComponent {
     static propTypes = {
         users: PropTypes.array.isRequired,
+        onSubmitForm: PropTypes.func.isRequired,
+        onCloseModal: PropTypes.func.isRequired,
     };
 
     state = {
@@ -80,6 +89,37 @@ class CreateConversationModal extends PureComponent {
         };
     };
 
+    canSubmit = () => {
+        return (
+            this.state.type === CONVERSATION_TYPE__GROUP &&
+            this.state.name &&
+            this.state.participants.length
+        ) || (
+            this.state.type === CONVERSATION_TYPE__PERSONAL &&
+            this.state.participants.length
+        );
+    };
+
+    submitForm = () => {
+        if (
+            this.state.type === CONVERSATION_TYPE__GROUP &&
+            this.state.name &&
+            this.state.participants.length
+        ) {
+            this.props.onSubmitForm(this.state);
+        }
+
+        if (
+            this.state.type === CONVERSATION_TYPE__PERSONAL &&
+            this.state.participants.length
+        ) {
+            this.props.onSubmitForm({
+                type: 'personal',
+                participants: this.state.participants,
+            });
+        }
+    };
+
     render() {
         return (
             <Container>
@@ -94,7 +134,7 @@ class CreateConversationModal extends PureComponent {
                         />
                     </FormElementComponent>
                 </FormElement>
-                { this.state.type === 'group' && (
+                { this.state.type === CONVERSATION_TYPE__GROUP && (
                     <FormElement>
                         <FormElementTitle>Name</FormElementTitle>
                         <FormElementComponent>
@@ -119,11 +159,15 @@ class CreateConversationModal extends PureComponent {
                 </FormElement>
                 <FormElement>
                     <ButtonRow>
-                        <Button>
+                        <Button
+                            onClick={this.props.onCloseModal}
+                        >
                             Cancel
                         </Button>
                         <Button
                             primary
+                            isDisabled={!this.canSubmit()}
+                            onClick={this.submitForm}
                         >
                             Create
                         </Button>
@@ -138,4 +182,9 @@ const mapStateToProps = (state) => ({
     users: getUsersArray(state),
 });
 
-export default connect(mapStateToProps)(CreateConversationModal);
+const mapDispatchToProps = (dispatch) => ({
+    onCloseModal: () => dispatch(closeModal()),
+    onSubmitForm: ({ name, type, participants }) => dispatch(createConversation({ name, type, participants })),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateConversationModal);

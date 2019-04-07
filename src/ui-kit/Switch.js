@@ -25,6 +25,16 @@ const Option = styled.div`
     font-size: 11px;
     letter-spacing: 1.5px;
     cursor: pointer;
+    
+    &:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+    
+    &:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
 `;
 
 class Switch extends PureComponent {
