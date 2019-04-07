@@ -37,7 +37,7 @@ const UserNameContainer = styled.div`
     padding-left: 20px;
 `;
 
-class SelectableUserListItem extends PureComponent {
+export class SelectableUserListItem extends PureComponent {
     static propTypes = {
         data: PropTypes.object.isRequired,
         isSelected: PropTypes.bool.isRequired,
