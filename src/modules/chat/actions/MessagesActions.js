@@ -29,11 +29,10 @@ export const setMessagesLoadingState = makeActionCreator(ACTION_TYPES__CHAT_SET_
 export const setMessagesAllLoaded = makeActionCreator(ACTION_TYPES__CHAT_SET_MESSAGES_ALL_LOADED);
 export const setMessagesSendingState = makeActionCreator(ACTION_TYPES__CHAT_SET_MESSAGES_SENDING_STATE);
 
-
-export const requestMessages = ({ conversationId, limit, offset }) => (dispatch) => {
+export const requestMessagesActionConstructor = (apiService) => ({ conversationId, limit, offset }) => (dispatch) => {
     dispatch(setMessagesLoadingState({ conversationId, state: true }));
 
-    ApiService(API_CHATS__GET_LIMITED_MESSAGES, {
+    return apiService(API_CHATS__GET_LIMITED_MESSAGES, {
         conversationId,
         limit,
         offset,
@@ -61,7 +60,10 @@ export const requestMessages = ({ conversationId, limit, offset }) => (dispatch)
         );
 };
 
-export const sendMessage = (message) => (dispatch, getState) => {
+export const requestMessages = requestMessagesActionConstructor(ApiService);
+
+
+export const sendMessageActionConstructor = (apiService) => (message) => (dispatch, getState) => {
     const state = getState();
 
     const conversationId = getCurrentConversation(state);
@@ -72,7 +74,7 @@ export const sendMessage = (message) => (dispatch, getState) => {
         state: true,
     }));
 
-    ApiService(API_CHATS__SEND_MESSAGE, {
+    return apiService(API_CHATS__SEND_MESSAGE, {
         conversationId,
         userId,
         message,
@@ -111,14 +113,17 @@ export const sendMessage = (message) => (dispatch, getState) => {
         );
 };
 
-export const pollNewMessages = (conversationId) => (dispatch, getState) => {
+export const sendMessage = sendMessageActionConstructor(ApiService);
+
+
+export const pollNewMessagesActionConstructor = (apiService) => (conversationId) => (dispatch, getState) => {
     const lastMessageId = getLatestMessageIdByConversation(conversationId, getState());
 
     if ( lastMessageId === -1 ) {
         return;
     }
 
-    ApiService(API_CHATS__POLL_MESSAGES, {
+    return apiService(API_CHATS__POLL_MESSAGES, {
         conversationId,
         lastMessageId: String(lastMessageId),
     })
@@ -143,3 +148,5 @@ export const pollNewMessages = (conversationId) => (dispatch, getState) => {
             }
         );
 };
+
+export const pollNewMessages = pollNewMessagesActionConstructor(ApiService);

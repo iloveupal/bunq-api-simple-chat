@@ -21,10 +21,10 @@ const finishChatModuleInitialization = (users) => (dispatch) => {
     dispatch(navigateToLogin());
 };
 
-export const initializeChatModule = (dispatch) => {
+export const initializeChatModuleActionConstructor = (apiService) => (dispatch) => {
     dispatch(navigateToLoading());
 
-    ApiService(API_CHATS__GET_USERS)
+    return apiService(API_CHATS__GET_USERS)
         .then(
             ({ data }) =>
                 dispatch(finishChatModuleInitialization(reduceUserArrayById(data)))
@@ -34,3 +34,5 @@ export const initializeChatModule = (dispatch) => {
                 dispatch(navigateToError({ error }))
         );
 };
+
+export const initializeChatModule = initializeChatModuleActionConstructor(ApiService);

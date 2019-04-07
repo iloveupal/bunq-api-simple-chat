@@ -38,14 +38,14 @@ export const addConversation = makeActionCreator(ACTION_TYPES__CHAT_CONVERSATION
 export const setCurrentConversation = makeActionCreator(ACTION_TYPES__CHAT_CONVERSATIONS_SET_CURRENT);
 export const setIsCreatingConversation = makeActionCreator(ACTION_TYPES__SET_IS_CONVERSATION_CREATING);
 
-export const loadConversations = () => (dispatch, getState) => {
+export const loadConversationsActionConstructor = (apiService) => () => (dispatch, getState) => {
     const state = getState();
 
     const userId = getCurrentUser(state);
 
     dispatch(setConversationsLoadingState(true));
 
-    ApiService(API_CHATS__GET_CONVERSATIONS_OF_USER, { userId })
+    return apiService(API_CHATS__GET_CONVERSATIONS_OF_USER, { userId })
         .then(({ data }) => {
             dispatch(setConversationsLoadingState(false));
             dispatch(setUserConversations({
@@ -56,12 +56,14 @@ export const loadConversations = () => (dispatch, getState) => {
         .catch(( error ) => navigateToError({ error }));
 };
 
-export const createConversation = ({ name, type, participants }) => (dispatch) => {
+export const loadConversations = loadConversationsActionConstructor(ApiService);
+
+export const createConversationActionConstructor = (apiService) => ({ name, type, participants }) => (dispatch) => {
     const users = participants.map((user) => getUserId(user));
 
     dispatch(setIsCreatingConversation(true));
 
-    ApiService(
+    return apiService(
         (
             type === CONVERSATION_TYPE__PERSONAL
                 ? API_CHATS__CREATE_PERSONAL_CONVERSATION
@@ -102,3 +104,5 @@ export const createConversation = ({ name, type, participants }) => (dispatch) =
         )
         .catch((error) => { navigateToError({ error }) });
 };
+
+export const createConversation = createConversationActionConstructor(ApiService);

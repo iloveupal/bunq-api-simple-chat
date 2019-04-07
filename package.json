@@ -31,6 +31,10 @@
     "babel-plugin-styled-components": "^1.10.0",
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.12.4",
+    "jest": "^24.7.1",
+    "jest-styled-components": "^6.3.1",
+    "react-test-renderer": "^16.8.6",
+    "redux-mock-store": "^1.5.3",
     "url-loader": "^1.1.2",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
@@ -40,5 +44,16 @@
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
     "test": "jest",
     "build": "webpack"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^Utils(.*)$": "<rootDir>/src/utils$1",
+      "^Framework(.*)$": "<rootDir>/src/framework$1",
+      "^Modules(.*)$": "<rootDir>/src/modules$1",
+      "^Config(.*)$": "<rootDir>/src/config$1",
+      "^Ui(.*)$": "<rootDir>/src/ui-kit$1",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   }
 }
